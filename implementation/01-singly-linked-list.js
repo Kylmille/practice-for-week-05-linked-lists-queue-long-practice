@@ -1,4 +1,3 @@
-// Node class is implemented for you, no need to look for bugs here!
 class SinglyLinkedNode {
     constructor(val) {
         this.value = val;
@@ -14,68 +13,92 @@ class SinglyLinkedList {
 
     addToHead(val) {
         // Add node of val to head of linked list
+        const newNode = new SinglyLinkedNode(val);
+        newNode.next = this.head;
+        this.head = newNode;
+        this.length++;
 
-        // Your code here
-
-        // Write your hypothesis on the time complexity of this method here
+        // Time complexity hypothesis: O(1) - Constant time complexity
     }
 
     addToTail(val) {
-        // There are bugs in this method! Fix them!!!
-
         // Add node of val to tail of linked list
-        let newNode = new SinglyLinkedNode(data);
+        const newNode = new SinglyLinkedNode(val);
 
-        if (!head) {
-            head = newNode;
-            return head;
+        if (!this.head) {
+            this.head = newNode;
+        } else {
+            let curr = this.head;
+            while (curr.next) {
+                curr = curr.next;
+            }
+            curr.next = newNode;
         }
+        this.length++;
 
-        let curr = head;
-        while (curr) {
-            curr = current.next;
-        }
-        curr.next = newNode;
-
-        return head;
-
-        // Write your hypothesis on the time complexity of this method here
+        // Time complexity hypothesis: O(n) - Linear time complexity, where n is the number of nodes in the list
     }
 
     removeFromHead() {
         // Remove node at head
+        if (!this.head) return null;
 
-        // Your code here
+        const removedNode = this.head;
+        this.head = this.head.next;
+        this.length--;
 
-        // Write your hypothesis on the time complexity of this method here
+        return removedNode.value;
+
+        // Time complexity hypothesis: O(1) - Constant time complexity
     }
 
     removeFromTail() {
         // Remove node at tail
+        if (!this.head) return null;
 
-        // Your code here
+        if (!this.head.next) {
+            const removedNode = this.head;
+            this.head = null;
+            this.length--;
+            return removedNode.value;
+        }
 
-        // Write your hypothesis on the time complexity of this method here
+        let prev = null;
+        let curr = this.head;
+        while (curr.next) {
+            prev = curr;
+            curr = curr.next;
+        }
+        prev.next = null;
+        this.length--;
+
+        return curr.value;
+
+        // Time complexity hypothesis: O(n) - Linear time complexity, where n is the number of nodes in the list
     }
 
     peekAtHead() {
         // Return the value of head node
+        return this.head ? this.head.value : null;
 
-        // Your code here
-
-        // Write your hypothesis on the time complexity of this method here
+        // Time complexity hypothesis: O(1) - Constant time complexity
     }
 
     print() {
         // Print out the linked list
+        let curr = this.head;
+        const values = [];
+        while (curr) {
+            values.push(curr.value);
+            curr = curr.next;
+        }
+        console.log(values.join(" -> "));
 
-        // Your code here
-
-        // Write your hypothesis on the time complexity of this method here
+        // Time complexity hypothesis: O(n) - Linear time complexity, where n is the number of nodes in the list
     }
 }
 
 module.exports = {
     SinglyLinkedList,
     SinglyLinkedNode
-}
+};
